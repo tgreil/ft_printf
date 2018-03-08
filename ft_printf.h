@@ -1,35 +1,63 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <stdio.h>
+# include <stdlib.h>
 
-# define OPTION_NB		5
-# define EXIT_ERROR		-1
-# define EXIT_SUCCESS	0
-# define TRUE			1
-# define FALSE			0
+# define EXIT_ERROR			-1
+# define EXIT_SUCCESS		0
+# define EXIT_S				EXIT_SUCCESS
+# define TRUE				1
+# define FALSE				0
+# define LEFT				22
+# define RIGHT				12
+# define GET_ATTR_CHAR		'*'
+# define CONVERSION_CHAR	'%'
+# define COLOR_CHAR			'{'
+# define FD_CHAR			'!'
+# define FILE_CHAR			'$'
+# define DEFAULT_FILL_CHAR	' '
 
-typedef struct		s_pf_option
+typedef struct				s_pf_nb
 {
-	char			*s;
-	size_t			s_size;
-	int				(*f)(void *);
-	char			arg;
-}					t_pf_option;
+	void					*data;
+}							t_pf_nb;
 
-int			ft_putchar(char c);
-int			ft_is_op(char *s, char *op, int op_size);
+typedef struct				s_pf_conversion
+{
+	t_pf_nb					nb;
+	char					to_sign;
+	size_t					field_min;
+	char					field_fill_char;
+	char					field_fill_side;
+	size_t					precision;
+}							t_pf_conversion;
 
-int			ft_printf_c(void *data);
-int			ft_printf_d(void *data);
-int			ft_printf_s(void *data);
-int			ft_printf_mod(void *data);
+typedef struct				s_printf
+{
+	int						fd;
+	char					is_file;
+	t_pf_conversion			conv;
+	va_list					ap;
+	size_t					i;
+	char					*str;
+	size_t					printed;
+}							t_printf;
 
-int			ft_printf(char *s, ...);
+int							ft_putchar_fd(int c, int fd);
 
-int			ft_printf_init(t_pf_option *op);
+int							ft_printf_file(t_printf *pf);
+int							ft_printf_fd(t_printf *pf);
+int							ft_printf_color(t_printf *pf);
+int							ft_printf_conversion(t_printf *pf);
+int							ft_printf(char *s, ...);
 
 #endif

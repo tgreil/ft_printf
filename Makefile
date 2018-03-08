@@ -18,10 +18,12 @@ CFLAGS	+=	-Wall -Wextra -Werror
 
 CFLAGS	+=	-I.
 
-SRCS	=	utils.c				\
-			ft_printf.c			\
-			ft_printf_init.c	\
-			ft_printf_a_z.c
+SRCS	=	ft_printf.c					\
+			ft_printf_fd.c				\
+			ft_printf_file.c			\
+			ft_printf_print.c			\
+			ft_printf_color.c			\
+			ft_printf_conversion.c
 
 OBJS	=	$(SRCS:.c=.o)
 

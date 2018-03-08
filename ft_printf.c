@@ -1,34 +1,44 @@
 #include "ft_printf.h"
 
+void	ft_printf_init(t_printf *pf, char *str)
+{
+	pf->i = 0;
+	pf->fd = 1;
+	pf->str = str;;
+	pf->printed = 0;
+	pf->is_file = FALSE;
+	pf->conv.nb.data = NULL;
+	pf->conv.to_sign = FALSE;
+	pf->conv.field_min = 0;
+	pf->conv.precision = 0;
+	pf->conv.field_fill_side = LEFT;
+	pf->conv.field_fill_char = DEFAULT_FILL_CHAR;
+}
+
 int		ft_printf(char *str, ...)
 {
-	t_pf_option	op[OPTION_NB];
-	size_t		printed;
-	va_list		ap;
-	size_t		i;
-	size_t		i_op;
-	void		*data;
+	t_printf	pf;
 
-	i = 0;
-	printed = 0;
-	va_start(ap, str);
-	ft_printf_init(op);
-	while (str[i])
+	va_start(pf.ap, str);
+	ft_printf_init(&pf, str);
+	while (str[pf.i] != '\0')
 	{
-		i_op = 0;
-		while (i_op < OPTION_NB &&
-						ft_is_op(str + i, op[i_op].s, op[i_op].s_size) == FALSE)
-			i_op++;
-		if (i_op == OPTION_NB)
-			printed += ft_putchar(str[i]);
-		else
+		if (str[pf.i] == CONVERSION_CHAR)
 		{
-			i += op[i_op].s_size - 1;
-			if (op[i_op].arg)
-				data = va_arg(ap, void *);
-			printed += op[i_op].f(data);
+			if (ft_printf_conversion(&pf) < 0)
+				return (EXIT_ERROR);
 		}
-		i++;
+		else if (str[pf.i] == COLOR_CHAR)
+			ft_printf_color(&pf);
+		else if (str[pf.i] == FD_CHAR) // check return from file and malloc
+			ft_printf_fd(&pf);
+		else if (str[pf.i] == FILE_CHAR)
+			ft_printf_file(&pf);
+		else
+			pf.printed += ft_putchar_fd(str[pf.i], pf.fd);
+		pf.i++;
 	}
-	return (printed);
+	if (pf.is_file)
+		close(pf.fd);
+	return (pf.printed);
 }
