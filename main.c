@@ -1,13 +1,14 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-/*  (%) (flag) (valeur min de champ) ((.)valeur de precision) (modificateur de longueur) (conversion)  */
-/*  (*) -> reclame argument       */
-/*  $ <- index va_arg   ==> list chainé ?   */
 
 int main()
 {
-	int printed = ft_printf("test $*$ test\n", "test");
-	printf("\nprinted:\t%d\n", printed);
+//	for(int i = 0;i < 8*8;i++)
+	//{
+	//	printf("%d", ((float)test) >> i & 1);
+	//}
+	printf("% .5d\n", 225);
+	ft_printf("% .5d\n", 225);
 	return (0);
 }

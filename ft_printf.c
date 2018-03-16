@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	ft_printf_init(t_printf *pf, char *str)
+static void	ft_printf_init(t_printf *pf, char *str)
 {
 	pf->i = 0;
 	pf->fd = 1;
@@ -15,7 +15,7 @@ void	ft_printf_init(t_printf *pf, char *str)
 	pf->conv.field_fill_char = DEFAULT_FILL_CHAR;
 }
 
-int		ft_printf(char *str, ...)
+int			ft_printf(char *str, ...)
 {
 	t_printf	pf;
 
@@ -40,5 +40,6 @@ int		ft_printf(char *str, ...)
 	}
 	if (pf.is_file)
 		close(pf.fd);
+	va_end(pf.ap);
 	return (pf.printed);
 }
