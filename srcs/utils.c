@@ -1,5 +1,27 @@
 #include "ft_printf.h"
 
+char	*ft_strdup(char *src)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	if (!src)
+		return (NULL);
+	while (src[i])
+		i++;
+	if (!(new = malloc(i + 1)))
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		new[i] = src[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}
+
 size_t		ft_strlen(char *s)
 {
 	size_t	i;
@@ -45,4 +67,19 @@ int			ft_little_atoi(char *str)
 		i++;
 	}
 	return (nb);
+}
+
+int			ft_print_char_xtime(char c, int nbr, int fd)
+{
+	int	printed;
+	int	i;
+
+	i = 0;
+	printed = 0;
+	while (i < nbr)
+	{
+		printed += ft_putchar_fd(c, fd);
+		i++;
+	}
+	return (printed);
 }

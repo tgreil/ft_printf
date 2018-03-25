@@ -16,12 +16,12 @@ NAME	=	libftprintf.a
 
 CFLAGS	+=	-Wall -Wextra -Werror
 
-CFLAGS	+=	-I.
+CFLAGS	+=	-Iincludes
 
 SRCS	=	utils.c						\
 			ft_printf.c					\
 			ft_printf_fd.c				\
-			ft_super_itoa.c				\
+			ft_llong_itoa.c				\
 			ft_printf_file.c			\
 			ft_printf_print.c			\
 			ft_printf_color.c			\
@@ -33,7 +33,7 @@ SRCS	=	utils.c						\
 			ft_printf_c.c				\
 			ft_printf_d.c
 
-OBJS	=	$(SRCS:.c=.o)
+OBJS	=	$(addprefix srcs/, $(SRCS:.c=.o))
 
 $(NAME):	 $(OBJS)
 		ar rc $(NAME) $(OBJS)

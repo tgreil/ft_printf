@@ -75,12 +75,15 @@ typedef struct				s_printf
 	size_t					printed;
 }							t_printf;
 
+int							ft_print_char_xtime(char c, int nbr, int fd);
+char						*ft_strdup(char *src);
 size_t						ft_strlen(char *str);
 size_t						ft_putstr_fd(char *str, int fd);
 int							ft_putchar_fd(int c, int fd);
 char						*ft_strndup(char *str, size_t n);
 int							ft_little_atoi(char *str);
-char						*ft_super_itoa(long long n, char *b, size_t s);
+char						*ft_llong_itoa(unsigned long long nb, char is_neg,
+																size_t size);
 
 int							ft_printf_a(t_printf *pf, char *b, char o, char p);
 int							ft_printf_b(t_printf *pf);
@@ -89,8 +92,7 @@ int							ft_printf_C(t_printf *pf);
 int							ft_printf_d(t_printf *pf);
 
 
-void						ft_printf_conv_sign(char *s,
-													t_pf_conversion conv);
+void						ft_printf_conv_sign(char *s, t_pf_conversion c);
 size_t						ft_printf_conv_print(char *s,
 											t_pf_conversion conv, int fd);
 int							ft_printf_conversion_find(t_printf *p, char c);
