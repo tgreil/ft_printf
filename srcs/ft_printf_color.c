@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_color.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/05 15:32:18 by tgreil            #+#    #+#             */
+/*   Updated: 2018/04/05 15:35:40 by tgreil           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static int		ft_printf_is_color(char *color, char *compar)
@@ -45,7 +57,7 @@ static char		*ft_printf_color_get(char *color_name, int to_free)
 	if (ft_printf_is_color("eoc", color_name) == TRUE)
 		color = ft_strndup("\e[39m", COLOR_SIZE);
 	if (ft_printf_is_color("black", color_name) == TRUE)
-		color =ft_strndup("\e[30m", COLOR_SIZE);
+		color = ft_strndup("\e[30m", COLOR_SIZE);
 	if (ft_printf_is_color("red", color_name) == TRUE)
 		color = ft_strndup("\e[31m", COLOR_SIZE);
 	if (ft_printf_is_color("green", color_name) == TRUE)

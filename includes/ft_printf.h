@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/05 15:32:11 by tgreil            #+#    #+#             */
+/*   Updated: 2018/04/05 15:34:23 by tgreil           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -82,16 +94,20 @@ size_t						ft_putstr_fd(char *str, int fd);
 int							ft_putchar_fd(int c, int fd);
 char						*ft_strndup(char *str, size_t n);
 int							ft_little_atoi(char *str);
-char						*ft_llong_itoa(unsigned long long nb, char is_neg,
-																size_t size);
+int							ft_putnbr_base_fd(int nbr, char *base, int fd);
+char						*ft_llong_itoa(unsigned long long nb, char *base);
 
-int							ft_printf_a(t_printf *pf, char *b, char o, char p);
+int							ft_printf_a(t_printf *pf);
 int							ft_printf_b(t_printf *pf);
 int							ft_printf_c(t_printf *pf);
-int							ft_printf_C(t_printf *pf);
+int							ft_printf_cc(t_printf *pf);
 int							ft_printf_d(t_printf *pf);
+int							ft_printf_s(t_printf *pf);
+int							ft_printf_ss(t_printf *pf);
 
-
+void						ft_printf_sign(t_printf *pf, char is_neg);
+void						ft_printf_field(t_printf *p, char *c_nb, char n,
+																	char side);
 void						ft_printf_conv_sign(char *s, t_pf_conversion c);
 size_t						ft_printf_conv_print(char *s,
 											t_pf_conversion conv, int fd);

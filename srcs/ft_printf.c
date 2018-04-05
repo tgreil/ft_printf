@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/05 15:32:58 by tgreil            #+#    #+#             */
+/*   Updated: 2018/04/05 15:36:10 by tgreil           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static void	ft_printf_init(t_printf *pf, char *str)
 {
 	pf->i = 0;
 	pf->fd = 1;
-	pf->str = str;;
+	pf->str = str;
 	pf->printed = 0;
 	pf->is_file = FALSE;
 	pf->conv.nb.data = NULL;
