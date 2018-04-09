@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 13:52:30 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 14:36:52 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 16:41:52 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		ft_printf_p(t_printf *pf)
 {
-	pf += 1;
+	pf->conv.chang = TRUE;
+	if (pf->conv.size < 5)
+		pf->conv.size = 5;
+	ft_printf_x(pf);
 	return (EXIT_SUCCESS);
 }

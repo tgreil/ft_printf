@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 15:28:14 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 15:50:47 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 19:21:13 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,25 @@
 
 static int	ft_printf_xxx(t_printf *pf, char *base, char *prefix)
 {
-	long long	nbr;
+	unsigned long long	nbr;
 	char		*c_nbr;
-	int			c_nbr_len;
 
-	nbr = ft_printf_type_get(pf, pf->conv.size);
-	if (!(c_nbr = ft_llong_itoa(nbr < 0 ? -nbr : nbr, base)))
+	nbr = ft_printf_type_get(pf, pf->conv.size, 1);
+	if (!(c_nbr = ft_llong_itoa(nbr, base)))
 		return (EXIT_ERROR);
-	c_nbr_len = ft_strlen(c_nbr);
-	pf->conv.precision -= c_nbr_len;
-	if (pf->conv.chang)
-		c_nbr_len += ft_strlen(prefix);
-	if (pf->conv.to_sign || nbr < 0)
-		c_nbr_len++;
-	pf->conv.field_min -= c_nbr_len;
-	if (pf->conv.precision > 0)
-		pf->conv.field_min -= pf->conv.precision;
+	ft_printf_field_calc(pf, nbr, c_nbr, nbr ? prefix : NULL);
 	ft_printf_field_print(pf, LEFT);
-	ft_printf_sign_print(pf, nbr < 0);
-	if (pf->conv.chang)
+	ft_printf_sign_print(pf, 0);
+	if (pf->conv.chang && nbr)
 		pf->printed += ft_putstr_fd(prefix, pf->fd);
 	ft_printf_precision_print(pf);
-	pf->printed += ft_putstr_fd(c_nbr, pf->fd);
+	if (nbr || !pf->conv.to_precis ||
+								pf->conv.precision >= (int)ft_strlen(c_nbr))
+		pf->printed += ft_putstr_fd(c_nbr, pf->fd);
+	else if (pf->conv.field_min > 0)
+		pf->printed += ft_putstr_fd(" ", pf->fd);
 	ft_printf_field_print(pf, RIGHT);
+	free(c_nbr);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,11 +6,38 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:55 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 15:14:27 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 19:15:37 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void		ft_printf_field_calc(t_printf *pf, long long nbr, char *c_nbr, char *pre)
+{
+	int	c_nbr_len;
+
+	c_nbr_len = ft_strlen(c_nbr);
+	pf->conv.precision -= c_nbr_len;
+	if (pf->conv.chang && pre)
+		c_nbr_len += ft_strlen(pre);
+	if (pf->conv.to_sign || nbr < 0 || (!c_nbr_len && pf->conv.space_it))
+		c_nbr_len++;
+	pf->conv.field_min -= c_nbr_len;
+	if (pf->conv.precision > 0)
+	{
+		pf->conv.field_min -= pf->conv.precision;
+		pf->conv.field_fill_char = ' ';
+	}
+	if (pf->conv.field_min < 0 && pf->conv.space_it &&
+												!pf->conv.to_sign && nbr >= 0)
+		pf->conv.field_min = 1;
+	if (pf->conv.field_fill_char != ' ' && pf->conv.precision < 0 &&
+											pf->conv.field_fill_side != RIGHT)
+	{
+		pf->conv.precision = pf->conv.field_min;
+		pf->conv.field_min = 0;
+	}
+}
 
 void		ft_printf_sign_print(t_printf *pf, char is_neg)
 {
@@ -30,25 +57,47 @@ void		ft_printf_precision_print(t_printf *pf)
 
 void		ft_printf_field_print(t_printf *pf, char s)
 {
-	if (s == pf->conv.field_fill_side && pf->conv.field_fill_char == ' ')
+	char	c;
+
+	c = pf->conv.field_fill_char;
+	if (s == pf->conv.field_fill_side)
 	{
-		pf->printed += ft_print_char_xtime(' ', pf->conv.field_min, pf->fd);
+		if (s == RIGHT)
+			c = ' ';
+		pf->printed += ft_print_char_xtime(c, pf->conv.field_min, pf->fd);
 	}
 }
 
-long long	ft_printf_type_get(t_printf *pf, char type)
+long long	ft_printf_type_get2(t_printf *pf, char type)
 {
 	long long	nbr;
 
 	if (type == 1)
+		nbr = (unsigned short)va_arg(pf->ap, unsigned int);
+	else if (type == 2)
+		nbr = (unsigned char)va_arg(pf->ap, unsigned int);
+	else if (type == 5 || type == 3)
+		nbr = va_arg(pf->ap, unsigned long);
+	else if (type == 6 || type == 4)
+		nbr = va_arg(pf->ap, unsigned long long);
+	else
+		nbr = va_arg(pf->ap, unsigned int);
+	return (nbr);
+}
+
+long long	ft_printf_type_get(t_printf *pf, char type, char unsign)
+{
+	long long	nbr;
+
+	if (unsign)
+		return (ft_printf_type_get2(pf, type));
+	if (type == 1)
 		nbr = (short)va_arg(pf->ap, int);
 	else if (type == 2)
 		nbr = (char)va_arg(pf->ap, int);
-	else if (type == 3)
-		nbr = va_arg(pf->ap, unsigned int);
-	else if (type == 5)
+	else if (type == 5 || type == 3)
 		nbr = va_arg(pf->ap, long);
-	else if (type == 6)
+	else if (type == 6 || type == 4)
 		nbr = va_arg(pf->ap, long long);
 	else
 		nbr = va_arg(pf->ap, int);

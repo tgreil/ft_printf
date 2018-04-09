@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:11 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 15:31:51 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 19:16:03 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ typedef struct				s_pf_conversion
 	char					chang;
 	char					to_sign;
 	char					space_it;
-	size_t					precision;
-	size_t					field_min;
+	int						precision;
+	char					to_precis;
+	int						field_min;
 	char					field_fill_char;
 	char					field_fill_side;
 }							t_pf_conversion;
@@ -123,10 +124,12 @@ int							ft_printf_x(t_printf *pf);
 int							ft_printf_xx(t_printf *pf);
 int							ft_printf_mod(t_printf *pf); // OK
 
+void						ft_printf_field_calc(t_printf *p, long long nbr,
+													char *c_nbr, char *prefix);
 void						ft_printf_sign_print(t_printf *pf, char is_neg);
 void						ft_printf_precision_print(t_printf *pf);
 void						ft_printf_field_print(t_printf *pf, char s);
-long long					ft_printf_type_get(t_printf *pf, char type);
+long long					ft_printf_type_get(t_printf *pf, char type, char u);
 void						ft_printf_conv_sign(char *s, t_pf_conversion c);
 size_t						ft_printf_conv_print(char *s,
 											t_pf_conversion conv, int fd);

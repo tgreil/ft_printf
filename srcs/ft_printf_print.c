@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:50 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/05 15:32:51 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 16:57:47 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_putstr_fill(t_printf *pf, char *str, char fill_c, char side)
 {
-	size_t	str_size;
-	size_t	i;
+	int	str_size;
+	int	i;
 
 	i = 0;
 	str_size = 0;

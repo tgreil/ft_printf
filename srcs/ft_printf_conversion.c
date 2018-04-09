@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:33 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/08 18:04:43 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 18:59:16 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ static size_t	ft_printf_conversion_field(t_printf *pf, size_t i)
 
 static size_t	ft_printf_conversion_precision(t_printf *pf, size_t i)
 {
+	pf->conv.to_precis = FALSE;
 	pf->conv.precision = 0;
 	if (pf->str[i] == PRECISION_CHAR)
 	{
+		pf->conv.to_precis = TRUE;
 		i++;
 		if (pf->str[i] == GET_ATTR_CHAR)
 			pf->conv.precision = va_arg(pf->ap, size_t);
@@ -118,9 +120,8 @@ int				ft_printf_conversion(t_printf *pf)
 	i = ft_printf_convesion_size(pf, i);
 	while (pf->str[i] == QUOTE_CHAR)
 		i++;
-	if (ft_printf_conversion_find(pf, pf->str[i]) == EXIT_SUCCESS)
-		pf->i = i;
-	else
-		pf->printed += ft_putchar_fd(pf->str[pf->i], pf->fd);
+	if (ft_printf_conversion_find(pf, pf->str[i]) != EXIT_SUCCESS)
+		i--;
+	pf->i = i;
 	return (EXIT_SUCCESS);
 }
