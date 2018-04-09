@@ -6,13 +6,13 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 13:52:30 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 14:08:17 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 14:36:52 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_print_p(t_printf *pf)
+int		ft_printf_p(t_printf *pf)
 {
 	pf += 1;
 	return (EXIT_SUCCESS);
