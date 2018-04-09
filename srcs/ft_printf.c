@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:58 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/05 15:36:10 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/09 13:44:44 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			ft_printf(char *str, ...)
 		}
 		else if (str[pf.i] == COLOR_CHAR)
 			ft_printf_color(&pf);
-		else if (str[pf.i] == FD_CHAR) // check return from file and malloc
+		else if (str[pf.i] == FD_CHAR)
 			ft_printf_fd(&pf);
 		else if (str[pf.i] == FILE_CHAR)
 			ft_printf_file(&pf);

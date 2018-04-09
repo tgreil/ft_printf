@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_printf_x.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/05 15:32:55 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 13:44:10 by tgreil           ###   ########.fr       */
+/*   Created: 2018/04/08 15:28:14 by tgreil            #+#    #+#             */
+/*   Updated: 2018/04/09 13:49:45 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-long long	ft_printf_type_get(t_printf *pf, char type)
+static int	ft_printf_xxx(t_printf *pf, char *base, char *prefix)
 {
-	long long	nbr;
+	pf += 1;
+	base += 1;
+	prefix += 1;
+	return (EXIT_SUCCESS);
+}
 
-	if (type == 1)
-		nbr = (short)va_arg(pf->ap, int);
-	else if (type == 2)
-		nbr = (char)va_arg(pf->ap, int);
-	else if (type == 3)
-		nbr = va_arg(pf->ap, unsigned int);
-	else if (type == 5)
-		nbr = va_arg(pf->ap, long);
-	else if (type == 6)
-		nbr = va_arg(pf->ap, long long);
-	else
-		nbr = va_arg(pf->ap, int);
-	return (nbr);
+int			ft_printf_xx(t_printf *pf)
+{
+	return (ft_printf_xxx(pf, "0123456789ABCDEF", "0X"));
+}
+
+int			ft_printf_x(t_printf *pf)
+{
+	return (ft_printf_xxx(pf, "0123456789abcdef", "0x"));
 }

@@ -6,7 +6,7 @@
 #    By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/10 13:32:03 by tgreil            #+#    #+#              #
-#    Updated: 2018/04/05 15:31:25 by tgreil           ###   ########.fr        #
+#    Updated: 2018/04/09 14:06:15 by tgreil           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,20 @@ SRCS	=	utils.c						\
 			ft_printf_conversion.c		\
 			ft_printf_conv_utils.c		\
 			ft_printf_conversion_find.c	\
-			ft_printf_a.c				\
-			ft_printf_b.c				\
-			ft_printf_c.c				\
-			ft_printf_d.c				\
-			ft_printf_s.c
+			conv/ft_printf_a.c			\
+			conv/ft_printf_b.c			\
+			conv/ft_printf_c.c			\
+			conv/ft_printf_d.c			\
+			conv/ft_printf_e.c			\
+			conv/ft_printf_f.c			\
+			conv/ft_printf_g.c			\
+			conv/ft_printf_n.c			\
+			conv/ft_printf_o.c			\
+			conv/ft_printf_p.c			\
+			conv/ft_printf_s.c			\
+			conv/ft_printf_u.c			\
+			conv/ft_printf_x.c			\
+			conv/ft_printf_mod.c
 
 OBJS	=	$(addprefix srcs/, $(SRCS:.c=.o))
 

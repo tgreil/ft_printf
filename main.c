@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:33:08 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/05 15:33:09 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/08 18:43:40 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@
 
 int main(int ac, char **av)
 {
-//	for(int i = 0;i < 8*8;i++)
-	//{
-	//	printf("%d", ((float)test) >> i & 1);
-	//}
-	printf("%10s\n", "test");
-	ft_printf("%10s\n", "test");
+	ft_printf("%-05d\n", -42);
+	printf("%-05d\n", -42);
 	return (0);
 }
