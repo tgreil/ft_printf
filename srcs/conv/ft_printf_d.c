@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:36 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 18:12:03 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 17:09:24 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		ft_printf_dd(t_printf *pf)
 {
+	if (pf->conv.size < 5)
+		pf->conv.size = 5;
 	ft_printf_d(pf);
 	return (EXIT_SUCCESS);
 }
@@ -29,7 +31,7 @@ int		ft_printf_d(t_printf *pf)
 	ft_printf_field_calc(pf, nbr, c_nbr, NULL);
 	ft_printf_field_print(pf, LEFT);
 	ft_printf_sign_print(pf, nbr < 0);
-	ft_printf_precision_print(pf);
+	pf->printed += ft_print_char_xtime('0', pf->conv.precision, pf->fd);
 	if (nbr || !pf->conv.to_precis ||
 								pf->conv.precision >= (int)ft_strlen(c_nbr))
 		pf->printed += ft_putstr_fd(c_nbr, pf->fd);

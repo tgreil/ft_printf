@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:11 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 19:16:03 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 16:42:13 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct				s_printf
 	size_t					i;
 	char					*str;
 	size_t					printed;
+	char					failed;
 }							t_printf;
 
 int							ft_print_char_xtime(char c, int nbr, int fd);
@@ -93,6 +94,7 @@ char						*ft_strdup(char *src);
 size_t						ft_strlen(char *str);
 size_t						ft_putstr_fd(char *str, int fd);
 int							ft_putchar_fd(int c, int fd);
+int							ft_putwchar_fd(unsigned int c, int fd);
 char						*ft_strndup(char *str, size_t n);
 int							ft_little_atoi(char *str);
 int							ft_putnbr_base_fd(int nbr, char *base, int fd);
@@ -103,7 +105,7 @@ int							ft_printf_aa(t_printf *pf);
 int							ft_printf_b(t_printf *pf);
 int							ft_printf_c(t_printf *pf);
 int							ft_printf_cc(t_printf *pf);
-int							ft_printf_d(t_printf *pf); // OK
+int							ft_printf_d(t_printf *pf);
 int							ft_printf_dd(t_printf *pf);
 int							ft_printf_e(t_printf *pf);
 int							ft_printf_ee(t_printf *pf);
@@ -112,22 +114,22 @@ int							ft_printf_ff(t_printf *pf);
 int							ft_printf_g(t_printf *pf);
 int							ft_printf_i(t_printf *pf);
 int							ft_printf_gg(t_printf *pf);
-int							ft_printf_n(t_printf *pf); // OK
+int							ft_printf_n(t_printf *pf);
 int							ft_printf_o(t_printf *pf);
 int							ft_printf_oo(t_printf *pf);
 int							ft_printf_p(t_printf *pf);
-int							ft_printf_s(t_printf *pf); // OK
+int							ft_printf_s(t_printf *pf);
 int							ft_printf_ss(t_printf *pf);
 int							ft_printf_u(t_printf *pf);
 int							ft_printf_uu(t_printf *pf);
 int							ft_printf_x(t_printf *pf);
 int							ft_printf_xx(t_printf *pf);
-int							ft_printf_mod(t_printf *pf); // OK
+int							ft_printf_xxx(t_printf *p, char *b, char *r, int f);
+int							ft_printf_mod(t_printf *pf);
 
 void						ft_printf_field_calc(t_printf *p, long long nbr,
 													char *c_nbr, char *prefix);
 void						ft_printf_sign_print(t_printf *pf, char is_neg);
-void						ft_printf_precision_print(t_printf *pf);
 void						ft_printf_field_print(t_printf *pf, char s);
 long long					ft_printf_type_get(t_printf *pf, char type, char u);
 void						ft_printf_conv_sign(char *s, t_pf_conversion c);

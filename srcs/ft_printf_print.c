@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:50 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 16:57:47 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 16:19:33 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ size_t	ft_putstr_fd(char *str, int fd)
 
 int		ft_putchar_fd(int c, int fd)
 {
-	return (write(fd, &c, 1) > 0 ? 1 : 0);
+	return (write(fd, &c, 1));
 }

@@ -6,13 +6,14 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:55 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 19:15:37 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 12:57:32 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_printf_field_calc(t_printf *pf, long long nbr, char *c_nbr, char *pre)
+void		ft_printf_field_calc(t_printf *pf, long long nbr, char *c_nbr,
+																	char *pre)
 {
 	int	c_nbr_len;
 
@@ -34,8 +35,10 @@ void		ft_printf_field_calc(t_printf *pf, long long nbr, char *c_nbr, char *pre)
 	if (pf->conv.field_fill_char != ' ' && pf->conv.precision < 0 &&
 											pf->conv.field_fill_side != RIGHT)
 	{
-		pf->conv.precision = pf->conv.field_min;
-		pf->conv.field_min = 0;
+		if (pf->conv.space_it)
+			pf->conv.field_fill_char = ' ';
+		pf->conv.precision = pf->conv.field_min - (pf->conv.space_it ? 1 : 0);
+		pf->conv.field_min = pf->conv.space_it ? 1 : 0;
 	}
 }
 
@@ -48,11 +51,6 @@ void		ft_printf_sign_print(t_printf *pf, char is_neg)
 		else
 			pf->printed += ft_putchar_fd('+', pf->fd);
 	}
-}
-
-void		ft_printf_precision_print(t_printf *pf)
-{
-	pf->printed += ft_print_char_xtime('0', pf->conv.precision, pf->fd);
 }
 
 void		ft_printf_field_print(t_printf *pf, char s)

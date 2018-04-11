@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/08 18:11:42 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 19:19:33 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 12:59:03 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			ft_printf_u(t_printf *pf)
 		return (EXIT_ERROR);
 	ft_printf_field_calc(pf, nbr, c_nbr, NULL);
 	ft_printf_field_print(pf, LEFT);
-	ft_printf_precision_print(pf);
+	pf->printed += ft_print_char_xtime('0', pf->conv.precision, pf->fd);
 	if (nbr || !pf->conv.to_precis || !pf->conv.precision)
 		pf->printed += ft_putstr_fd(c_nbr, pf->fd);
 	else if (pf->conv.field_min > 0)

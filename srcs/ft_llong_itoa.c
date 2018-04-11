@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:31:42 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/05 15:31:44 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 12:30:41 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ char		*ft_llong_itoa(unsigned long long nb, char *base)
 	size_t	len;
 	size_t	i;
 
-	if (nb == ULLONG_MAX)
-		return (ft_strdup("18446744073709551615"));
 	base_len = ft_strlen(base);
 	len = ft_itoa_getsize(nb, base_len);
 	if (!(new = malloc(len + 1)))

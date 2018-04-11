@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:58 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 13:44:44 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 14:24:13 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	ft_printf_init(t_printf *pf, char *str)
 	pf->fd = 1;
 	pf->str = str;
 	pf->printed = 0;
+	pf->failed = FALSE;
 	pf->is_file = FALSE;
 	pf->conv.nb.data = NULL;
 	pf->conv.to_sign = FALSE;
@@ -53,5 +54,5 @@ int			ft_printf(char *str, ...)
 	if (pf.is_file)
 		close(pf.fd);
 	va_end(pf.ap);
-	return (pf.printed);
+	return (pf.failed ? -1 : pf.printed);
 }

@@ -6,7 +6,7 @@
 /*   By: tgreil <tgreil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/05 15:32:33 by tgreil            #+#    #+#             */
-/*   Updated: 2018/04/09 18:59:16 by tgreil           ###   ########.fr       */
+/*   Updated: 2018/04/10 17:34:26 by tgreil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,21 @@ static size_t	ft_printf_conversion_flags(t_printf *pf, size_t i)
 static size_t	ft_printf_conversion_field(t_printf *pf, size_t i)
 {
 	if (pf->str[i] == GET_ATTR_CHAR)
+	{
 		pf->conv.field_min = va_arg(pf->ap, size_t);
-	else
-		pf->conv.field_min = ft_little_atoi(pf->str + i);
-	if (pf->str[i] == GET_ATTR_CHAR)
 		i++;
-	else
-		while (pf->str[i] >= '0' && pf->str[i] <= '9')
-			i++;
+	}
+	if (pf->str[i] >= '0' && pf->str[i] <= '9')
+		pf->conv.field_min = ft_little_atoi(pf->str + i);
+	while (pf->str[i] >= '0' && pf->str[i] <= '9')
+		i++;
+	if (pf->str[i] == GET_ATTR_CHAR)
+		return (ft_printf_conversion_field(pf, i));
+	if (pf->conv.field_min < 0)
+	{
+		pf->conv.field_fill_side = RIGHT;
+		pf->conv.field_min = -pf->conv.field_min;
+	}
 	return (i);
 }
 
@@ -60,15 +67,14 @@ static size_t	ft_printf_conversion_precision(t_printf *pf, size_t i)
 	{
 		pf->conv.to_precis = TRUE;
 		i++;
-		if (pf->str[i] == GET_ATTR_CHAR)
-			pf->conv.precision = va_arg(pf->ap, size_t);
-		else
-			pf->conv.precision = ft_little_atoi(pf->str + i);
-		if (pf->str[i] == GET_ATTR_CHAR)
+		pf->conv.precision = ft_little_atoi(pf->str + i);
+		while (pf->str[i] >= '0' && pf->str[i] <= '9')
 			i++;
-		else
-			while (pf->str[i] >= '0' && pf->str[i] <= '9')
-				i++;
+		if (pf->str[i] == GET_ATTR_CHAR)
+		{
+			pf->conv.precision = va_arg(pf->ap, size_t);
+			i++;
+		}
 	}
 	return (i);
 }
@@ -111,6 +117,7 @@ int				ft_printf_conversion(t_printf *pf)
 	i = ft_printf_conversion_flags(pf, i);
 	while (pf->str[i] == QUOTE_CHAR)
 		i++;
+	pf->conv.field_min = 0;
 	i = ft_printf_conversion_field(pf, i);
 	while (pf->str[i] == QUOTE_CHAR)
 		i++;
